@@ -1,14 +1,8 @@
 import pygame
 import os
 import sys
-
-WIDTH = 1024
-HEIGHT = 768
-CAPTION = "Online Settlers"
-
-BACK_COLOR = (145, 145, 145)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
+import network
+from common import *
 
 # Initialize pygame and create window
 pygame.init()
@@ -32,6 +26,7 @@ class Button:
         self.enabled = True
         self.e_sprite = pygame.image.load(data("dice_button.png"))
         self.d_sprite = pygame.image.load(data("dice_empty.png"))
+        self.load_imgs()
 
     def draw(self):
         if self.enabled:
@@ -41,6 +36,10 @@ class Button:
 
 
 class DiceButton(Button):
+
+    def load_imgs(self):
+        self.e_sprite = pygame.image.load(data("dice_button.png"))
+        self.d_sprite = pygame.image.load(data("dice_empty.png"))
 
     def press(self):
         pass
@@ -88,6 +87,42 @@ class BuildCard:
 
     def __init__(self):
         pass
+
+    def draw(self):
+        pass
+
+
+class Player:
+    def __init__(self):
+        self.color = RED
+
+
+players = [Player]
+
+
+class Map:
+
+    def draw(self):
+        pass
+
+
+class Edge:
+
+    def draw(self):
+        if self.owner:
+            pygame.draw.line(screen, players[self.owner].color, self.start, self.end, 5)
+        else:
+            pygame.draw.line(screen, BLACK, self.start, self.end, 1)
+
+
+class Intersection:
+
+    def draw(self):
+        if self.owner:
+            pygame.draw.circle(screen, players[self.owner].color, self.pos, 20)
+
+
+class Tile:
 
     def draw(self):
         pass
